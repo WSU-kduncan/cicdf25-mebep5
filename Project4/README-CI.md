@@ -27,10 +27,10 @@ The workflow is configured to run whenever code is pushed to the main branch. Th
 - The third step sets up Docker Buildx which enables docker build features which allows for the automation to actually work.
 - The fourth step builds an image using the Dockerfile and pushes it to DockerHub using the tag `${{ secrets.DOCKER_USERNAME }}/mywebsite2:latest` 
 ## Values to update if in different repository
-## Changes in the Workflow
+### Changes in the Workflow
 - context and file paths need to be updated depending on where the Dockerfile is stored.
 - tags need to change to match the DockerHub repository and image name you want to push to.
-## Changes in the Repository
+### Changes in the Repository
 - Secrets need to be changed ensuring that you have the correct DockerHub username and token so it will go to the right repository.
 
 ## Link to Workflow
