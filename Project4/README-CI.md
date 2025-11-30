@@ -69,4 +69,8 @@ To push a tag to the repository, you must use the command `git push origin tag t
 ### Link to workflow
 
 ![Here](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/.github/workflows/main.yml)
-
+## Testing & Validating
+- To test that the workflow did its tasking is to go to the DockerHub repo and see if the tags are pushed there in the tags tab. 
+- To verify if the image works in DockerHub, just do the same as before and pull the image and reference to the commands used in the section "How to Verify the image in DockerHub works" (if this is too blunt for the assignment, let me know. It doesnt really make sense to reiterate it.)
+## Link to DockerHub repository with evidence of tag set
+![Here](https://hub.docker.com/r/mebep5/mywebsite2/tags)
