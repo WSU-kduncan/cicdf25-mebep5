@@ -45,7 +45,7 @@ The workflow is configured to run whenever code is pushed to the main branch. Th
 - Pull and run the image locally to test it using the command `docker pull dockerusername/mywebsite:latest` then run `docker run -p 8080:80 dockerusername/mywebsite:latest` and you should be able to navigate to the website `http://localhost:8080` and see content.
 
 ## Link to DockerHub Repository
-!(https://hub.docker.com/r/mebep5/mywebsite2)
+https://hub.docker.com/r/mebep5/mywebsite2
 
 
 
