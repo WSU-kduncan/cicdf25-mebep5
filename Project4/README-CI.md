@@ -47,6 +47,26 @@ The workflow is configured to run whenever code is pushed to the main branch. Th
 ## Link to DockerHub Repository
 https://hub.docker.com/r/mebep5/mywebsite2
 
+# Semantic Versioning
 
+## Tags
+To generate a tag for github, you must use the command `git tag <tagname>` This will now have created a tag that you can push to the repo!
 
+To see a tag in your github repo, there are two ways. Using the CLI, there is a command for seeing tags which is just `git tag`. This lists all the tags currently in the github repository. The other way is to look at the repo on a web browser and navigate to the releases option on the right hand side of the main page. This will list tags.
+
+To push a tag to the repository, you must use the command `git push origin tag tagname`.
+
+## Semantic Versioning Container Images
+
+- The workflow triggers when a push is made specifically when there is a tag being pushed and the tag follows the filter that is `v*.*.*`
+- The first step pulls the repository code into the Github Actions Runner.
+- The second step generates metadata to automatically set Docker image tags for an image on DockerHub. 
+- The third step logs you into DockerHub by authenticating using repository secrets.
+- The fourth step sets up Docker Buildx which enables docker build features which allows for the automation to actually work.
+- The fifth step builds an image using the Dockerfile and pushes it to DockerHub while attaching tags given to it by step 2.
+
+- The values that need to be changed if it is used in a different repository are only the secrets we setup in the actual github repository in step 2 and 3 and the paths of the files in step 5.
+### Link to workflow
+
+![Here](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/.github/workflows/main.yml)
 
