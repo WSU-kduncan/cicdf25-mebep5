@@ -35,7 +35,17 @@ The workflow is configured to run whenever code is pushed to the main branch. Th
 
 ## Link to Workflow
 ![Here](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/.github/workflows/main.yml)
+# Testing & Validating
+## How to Test that the Workflow did its Tasking
+- You push a commit to main branch of the repository.
+- Go to the Actions tab in GitHub and confirm that the workflow ran successfully.
+- Check the logs for the Build and Push Docker Images step to make sure the image was pushed without any errors.
+## How to Verify the image in DockerHub works
+- Go to your DockerHub account and fonrim the image appears on the repository.
+- Pull and run the image locally to test it using the command `docker pull dockerusername/mywebsite:latest` then run `docker run -p 8080:80 dockerusername/mywebsite:latest` and you should be able to navigate to the website `http://localhost:8080` and see content.
 
+## Link to DockerHub Repository
+![Here](https://hub.docker.com/repository/docker/mebep5/mywebsite2/general)
 
 
 
