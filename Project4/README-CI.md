@@ -74,3 +74,25 @@ To push a tag to the repository, you must use the command `git push origin tag t
 - To verify if the image works in DockerHub, just do the same as before and pull the image and reference to the commands used in the section "How to Verify the image in DockerHub works" (if this is too blunt for the assignment, let me know. It doesnt really make sense to reiterate it.)
 ## Link to DockerHub repository with evidence of tag set
 ![Here](https://hub.docker.com/r/mebep5/mywebsite2/tags)
+
+# Project Description and Diagram
+
+The goal of this project is to automate the process of creating and pushing Docker Images using GitHub Actions. When a developer pushes a version to Github, the workflow should create the container image and publish it to DockerHub with multiple tags with versions.
+
+### Tools Used
+- Git is used to manage the code and create tags
+- GitHub Actions automates and triggers workflows
+- Docker builds container images from the projects Dockerfile
+- docker/metadata-action generates semantic version tags for the Image based on Git Tags
+- docker/login-action Authenticates with DockerHub using the repository secrets
+- docker/setup-buildx-action Enables advanced Docker builds which allows the automation to work fluently with docker.
+- docker/build-push-action builds and pushes the image to dockerhub with the new tags.
+
+## Diagram of Project
+![Diagram](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project4/Proof.png)
+
+# Resources
+
+I used one github repo for a resource helping me understand docker metadata action better.That is listed ![Here](https://github.com/docker/metadata-action).
+
+Other than than, I did use AI previously in my Project 3 to create the web contents files but that should be cited to what I asked the AI already but I will provide a link to that project README ![Here](https://github.com/WSU-kduncan/ceg3120f25-mebep5/blob/main/Project3/README.md)
