@@ -12,28 +12,28 @@ Next, if you want to push it to the DockerHub repository, you will need to tag y
 It is very simple to run a container that serves a web application. 
 
 After the steps above, you should be able to simply run the command, `docker run -d -p 8080:80 myusername/myimage:latest` This will now run the container on a local host using port 8080!
-
-# Creating a Personal Access Token (PAT)
+# GitHub Actions and DockerHub
+## Creating a Personal Access Token (PAT)
 - To create a PAT, you must login to the DockerHub website.
 - Go to Account Settings, then Security, then New Access Token.
 - Give the token a name and a scope, Read & Write Access will work.
 - Finally, Copy the token immediately as you will not be able to see it again.
 
-# Workflow Trigger
+## Workflow Trigger
 The workflow is configured to run whenever code is pushed to the main branch. This makes sure that new changes are built and pushed as a Docker Image all completely automated.
-# Workflow Steps
+## Workflow Steps
 - The first step pulls the repository code into the Github actions runner.
 - The second step logs you into DockerHub by authenticating using repository secrets. 
 - The third step sets up Docker Buildx which enables docker build features which allows for the automation to actually work.
 - The fourth step builds an image using the Dockerfile and pushes it to DockerHub using the tag `${{ secrets.DOCKER_USERNAME }}/mywebsite2:latest` 
-# Values to update if in different repository
-# Changes in the Workflow
+## Values to update if in different repository
+## Changes in the Workflow
 - context and file paths need to be updated depending on where the Dockerfile is stored.
 - tags need to change to match the DockerHub repository and image name you want to push to.
-# Changes in the Repository
+## Changes in the Repository
 - Secrets need to be changed ensuring that you have the correct DockerHub username and token so it will go to the right repository.
 
-# Link to Workflow
+## Link to Workflow
 ![Here](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/.github/workflows/main.yml)
 
 
