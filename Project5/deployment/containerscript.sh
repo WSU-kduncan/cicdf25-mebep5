@@ -10,8 +10,8 @@ CONTAINER_NAME="mywebsitetest"
 PORT_MAP="80:80"
 
 echo "Stopping old container"
-docker stop "${CONTAINER_NAME}"
-docker rm "${CONTAINER_NAME}"
+docker stop "${CONTAINER_NAME}" || true
+docker rm "${CONTAINER_NAME}" || true
 
 echo " Pulling ${IMAGE}"
 docker pull "${IMAGE}"
