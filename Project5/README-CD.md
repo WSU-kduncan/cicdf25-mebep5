@@ -23,4 +23,7 @@
 - To run the container, simply run the command `docker run -d --name CONTAINER_NAME -p PORT_MAP image`. This specifically runs it in detatched mode using the -d flag. If you wanted to debug your container and see processes as they happen to make sure its working properly, use the -it flag instead. I recommend once everything is figured out, to use the -d flag as this is running the container in the background so you arent eating up memory or resources as much having a terminal open displaying processes happening.
 - To verify that the container is successfully serving the web application, there are two ways. One way is to just use the curl command on localhost on port 80. The other command is to navigate to the instances public IP on a web browser on port 80 and see if it is displaying the web content.
 ## Scripting Container Application Refresh
-- The bash script 
+- The bash script stops an old container with the name `mywebsitetest` and removes it then pulls the latest image from the provided dockerhub repo and starts it. This container will be persistent through machine restarts and be connected with the port number 80:80 to connect to a web service.
+- To test if the script is successfully doing its taskings is by running it! First, run the script using ./containerscript.sh and you should see a bunch of messages popping up and stating if it worked and is up and running! To verify its taskings properly, you will need to check the docker processes to see if it is running using the command `docker ps`. From there you can try to curl the localhost to see if it is serving the latest content uploaded to DockerHub.
+### Link to Bash Script
+https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/containerscript.sh
