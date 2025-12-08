@@ -43,8 +43,23 @@ https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/cont
     - Parameter tells the webhook where to look for the value it should authenticate.
 ## Verify Webhook
 - To verify the definition file was loaded by the webhook, there is a simple curl command you can do that is `curl -X POST http://instanceip:9000/hooks/refresh-container  -H "X-Hub-Signature: Bnakel123" This shows the response-message after the webhook is sent which is just Yippe it worked!
-- To verify the webhook is receiving payloads that trigger it, there is a command you can run to read the logs in real time and its just reading the journalctl of the webhook. The command is `sudo journal ctl -u webhook -f` This basically just is a tool that is used to view logs collected by systemd. -u is used to determine what service is used which is in this case webhook.service. -f is used to keep the terminal live printing the logs as they come in.
+- To verify the webhook is receiving payloads that trigger it, there is a command you can run to read the logs in real time and its just reading the journalctl of the webhook. The command is `sudo journalctl -u webhook -f` This basically just is a tool that is used to view logs collected by systemd. -u is used to determine what service is used which is in this case webhook.service. -f is used to keep the terminal live printing the logs as they come in.
 - To verify if your docker container restarted, check the uptime/creation date using `docker ps`.
 ### Link to definition file
 https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/hooks.json
+
+## Configure a webhook service on the EC2 Instance
+- Within the webhook service file, there are many things that are needed.
+- Unit Section
+    - After=network.target makes sure that the service only is started after you are connected to the network. This makes sure that the webhook will actually work because it needs to be able to connect to the internet for http to work.
+- Service Section
+    - This section defines how the webhook actually runs.
+    - ExecStart basically defines the startup command for the service. This is very important to start the webhook on the startup of the machine.
+    - User just determineds what user runs the process.
+    - WorkingDirectory sets the absolute path to the directory being used to make sure no errors occur. 
+- Install Section
+    - WantedBy makes sure the service starts automatically when the system boots into multi user mode which lets us login to ssh and do other services at the same time.
+# How to enable and start the webhook service
+- To enable the webhook service, you have to run 3 commands `sudo systemctl daemon-reload` Which just makes sure that your webhook config file is upto date with the systemd manager. Next, you will run `sudo systemctl enable webhook` to enable the webhook service. Finally, if your webhook isn't showing that it is started yet using `sudo systemctl status webhook`, you will run the command `sudo systemctl start webhook`. Then it should work!
+- To verify the webhook service is capturing payloads and triggering the bash script, you can run the command `sudo journalctl -u webhook -f` which is described above on what the command actually does. But, the logs you are looking for is, you should see a line that says `matched hook: refresh-container` as well as `executing command: /home/ubuntu/containerscript.sh` which shows that it identified the hook as well as executed the bash script. This can be verified after CURLing while the webhook is active.
 
