@@ -1,0 +1,18 @@
+[
+	{
+		"id": "refresh-container",
+		"execute-command": "/home/ubuntu/containerscript.sh",
+		"response-message": "Yippe it worked",
+		"trigger-rule": {
+			"match": {
+				"type": "payload-hmac-sha256",
+				"value": "Bnakel123",
+				"parameter": {
+					"source": "header",
+					"name": "X-Hub-Signature"
+				}
+			}
+		}
+	}
+
+

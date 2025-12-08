@@ -27,3 +27,18 @@
 - To test if the script is successfully doing its taskings is by running it! First, run the script using ./containerscript.sh and you should see a bunch of messages popping up and stating if it worked and is up and running! To verify its taskings properly, you will need to check the docker processes to see if it is running using the command `docker ps`. From there you can try to curl the localhost to see if it is serving the latest content uploaded to DockerHub.
 ### Link to Bash Script
 https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/containerscript.sh
+
+# Deployment of Webhook
+
+## Installing adhanh's webhook
+- To install the webhook, you must run the command `sudo apt install webhook`. This will install webhook easily onto your ubuntu machine.
+- To verify the installation worked, run the command `webhook --verison`. This should display the version of the webhook application and will only display if it was installed properly.
+## Summary of Webhook Definition File
+- The id is the identifier for the hook becoming a piece of the URL path.
+- execute-command runs a bash script in the specified path when the webhook is triggered.
+- response-message just outputs a message so we can tell when the webhook is triggered.
+- trigger-rule is the way to verify if a payloads trigger comes from a trusted source. There are various rules we have set that will determine it.
+    - In the type field there is `payload-hmac-sha256` this is for GitHub to be able to send the secret to the webhook as it sends it in encrypted text.
+    - The secret is what github uses to verify that there is a payload being sent kind of like a key!
+    - Parameter tells the webhook where to look for the value it should authenticate.
+
