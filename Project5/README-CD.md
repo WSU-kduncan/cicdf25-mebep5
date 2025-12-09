@@ -42,7 +42,7 @@ https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/cont
     - The secret is what github uses to verify that there is a payload being sent kind of like a key!
     - Parameter tells the webhook where to look for the value it should authenticate.
 ## Verify Webhook
-- To verify the definition file was loaded by the webhook, there is a simple curl command you can do that is `curl -X POST http://instanceip:9000/hooks/refresh-container  -H "X-Hub-Signature: Bnakel123" This shows the response-message after the webhook is sent which is just Yippe it worked!
+- To verify the definition file was loaded by the webhook, there is a simple curl command you can do that is `curl -X POST http://instanceip:9000/hooks/refresh-container`  -H "X-Hub-Signature: Bnakel123" This shows the response-message after the webhook is sent which is just Yippe it worked!
 - To verify the webhook is receiving payloads that trigger it, there is a command you can run to read the logs in real time and its just reading the journalctl of the webhook. The command is `sudo journalctl -u webhook -f` This basically just is a tool that is used to view logs collected by systemd. -u is used to determine what service is used which is in this case webhook.service. -f is used to keep the terminal live printing the logs as they come in.
 - To verify if your docker container restarted, check the uptime/creation date using `docker ps`.
 ### Link to definition file
