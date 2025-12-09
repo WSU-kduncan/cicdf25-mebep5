@@ -1,4 +1,11 @@
 # Project 5 READ ME :D
+# Overview
+- The **GOAL** of this project is to allow for seamless updating of a container on AWS providing quick reliable image updates to the container.
+- Tools used in the project are below
+  - AWS is our cloud provider allowing us a server instance to host our other tools on
+  - Docker allows the creation of containers which let us provide reproducable, fast deployments of an application
+  - adhans webhook bridges our GitHub pushes to our AWS instance which automates the container being reloaded after an update.
+![Diagram](https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/DiagramP5.png)
 
 ## EC2 Instance Details
 
@@ -20,7 +27,7 @@
 - It doesn't state that you need to login on the Project taskings but to login to docker to connect your machine to DockerHub, you must do the command `docker login` and then you are prompted with a link that connects your machine and DockerHub with a simple code. You can also use a token but I did not want to have to go grab it as it basically just does the same thing. 
 ## Testing on EC2 Instance
 - To pull a container image from the DockerHub repository, you must be logged into docker and then run the command `docker pull dockerhubusername/dockerrepo:tag`. This will pull the image in the dedicated repository to the local device.
-- To run the container, simply run the command `docker run -d --name CONTAINER_NAME -p PORT_MAP image`. This specifically runs it in detatched mode using the -d flag. If you wanted to debug your container and see processes as they happen to make sure its working properly, use the -it flag instead. I recommend once everything is figured out, to use the -d flag as this is running the container in the background so you arent eating up memory or resources as much having a terminal open displaying processes happening.
+- To run the container, simply run the command `docker run -d --name CONTAINER_NAME -p PORT_MAP image`. This specifically runs it in detached mode using the -d flag. If you wanted to debug your container and see processes as they happen to make sure its working properly, use the -it flag instead. I recommend once everything is figured out, to use the -d flag as this is running the container in the background so you arent eating up memory or resources as much having a terminal open displaying processes happening.
 - To verify that the container is successfully serving the web application, there are two ways. One way is to just use the curl command on localhost on port 80. The other command is to navigate to the instances public IP on a web browser on port 80 and see if it is displaying the web content.
 ## Scripting Container Application Refresh
 - The bash script stops an old container with the name `mywebsitetest` and removes it then pulls the latest image from the provided dockerhub repo and starts it. This container will be persistent through machine restarts and be connected with the port number 80:80 to connect to a web service.
@@ -32,7 +39,7 @@ https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/cont
 
 ## Installing adhanh's webhook
 - To install the webhook, you must run the command `sudo apt install webhook`. This will install webhook easily onto your ubuntu machine.
-- To verify the installation worked, run the command `webhook --verison`. This should display the version of the webhook application and will only display if it was installed properly.
+- To verify the installation worked, run the command `webhook --version`. This should display the version of the webhook application and will only display if it was installed properly.
 ## Summary of Webhook Definition File
 - The id is the identifier for the hook becoming a piece of the URL path.
 - execute-command runs a bash script in the specified path when the webhook is triggered.
@@ -71,8 +78,14 @@ https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/webh
 - Then, choose `application/json` as the content type.
 - Create a secret to secure the payloads
 - Then select events to push.
-## Trigger that send payloads
+## Trigger that Sends Payloads
 - Pushing to your GitHub repo with a tag within the commit will cause the workflow to push to DockerHub while the webhook pulls the new information from DockerHub via the payload hence giving us life (or a working container).
 ## Successful payload delivery
-- YOu can tell if the payload is successful because of the command we have stated above again which within your CLI for the EC2 Instance, `sudo journalctl -u webhook -f`. 
+- You can tell if the payload is successful because of the command we have stated above again which within your CLI for the EC2 Instance, `sudo journalctl -u webhook -f`. 
 - To verify that payloads are only coming to allowed sources, you can try to use the CURL command on your webhook and see if it gives a response stating it worked. If it did not work, you will receive a message stating that the rules were not met. If you try and push to your GitHub, you will see in the logs as stated above, that it should work seamlessly. 
+
+# Resources
+[Adanhs Webhook](https://github.com/adnanh/webhook)
+[Systemd Service Help](https://linuxhandbook.com/create-systemd-services/)
+[Workflow Help](https://levelup.gitconnected.com/automated-deployment-using-docker-github-actions-and-webhooks-54018fc12e32)
+[Github Webhook Documentation](https://docs.github.com/en/webhooks)
