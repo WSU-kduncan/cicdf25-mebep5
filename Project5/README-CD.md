@@ -59,8 +59,20 @@ https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/hook
     - WorkingDirectory sets the absolute path to the directory being used to make sure no errors occur. 
 - Install Section
     - WantedBy makes sure the service starts automatically when the system boots into multi user mode which lets us login to ssh and do other services at the same time.
-# How to enable and start the webhook service
+## How to enable and start the webhook service
 - To enable the webhook service, you have to run 3 commands `sudo systemctl daemon-reload` Which just makes sure that your webhook config file is upto date with the systemd manager. Next, you will run `sudo systemctl enable webhook` to enable the webhook service. Finally, if your webhook isn't showing that it is started yet using `sudo systemctl status webhook`, you will run the command `sudo systemctl start webhook`. Then it should work!
 - To verify the webhook service is capturing payloads and triggering the bash script, you can run the command `sudo journalctl -u webhook -f` which is described above on what the command actually does. But, the logs you are looking for is, you should see a line that says `matched hook: refresh-container` as well as `executing command: /home/ubuntu/containerscript.sh` which shows that it identified the hook as well as executed the bash script. This can be verified after CURLing while the webhook is active.
 ## Link to webhook service file
 https://github.com/WSU-kduncan/cicdf25-mebep5/blob/main/Project5/deployment/webhook.service
+
+# Configuring a Payload Sender
+- I chose GitHub instead of DockerHub as the payload sender. This is because I felt like it made more sense to me to use GitHub as they have a webhook integration that works pretty seamlessly. I didn't look much into DockerHub because I feel that creating a secure password that gets encrypted and used as a key feels more secure to me.
+- To enable GitHub to send payloads to the EC2 webhook listener, you have to go to your repository, then settings, webhooks, and add webhook. Then, you will have to set the payload URL. This should be something like `http://ec2ip:9000/hooks/refresh-container`. 
+- Then, choose `application/json` as the content type.
+- Create a secret to secure the payloads
+- Then select events to push.
+## Trigger that send payloads
+- Pushing to your GitHub repo with a tag within the commit will cause the workflow to push to DockerHub while the webhook pulls the new information from DockerHub via the payload hence giving us life (or a working container).
+## Successful payload delivery
+- YOu can tell if the payload is successful because of the command we have stated above again which within your CLI for the EC2 Instance, `sudo journalctl -u webhook -f`. 
+- To verify that payloads are only coming to allowed sources, you can try to use the CURL command on your webhook and see if it gives a response stating it worked. If it did not work, you will receive a message stating that the rules were not met. If you try and push to your GitHub, you will see in the logs as stated above, that it should work seamlessly. 
