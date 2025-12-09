@@ -12,5 +12,4 @@ The goal is to automate imaging, pushing, and updating Docker containers for a w
   - Bash script to stop old containers, pull the latest docker image, and restart the service.
   - Webhook definition file that triggers rules, validates authenticity, and executes a command.
   - Webhook Service file that keeps the webhook running on the AWS instance.
-- ![Github Workflows](https://github.com/WSU-kduncan/cicdf25-mebep5/tree/main/.github/workflows)
-  - Contains a github actions workflow that automates docker image building, pushes images to docker, and supports semantic versions with Git tags.
+- ![Github Workflows](https://github.com/WSU-kduncan/cicdf25-mebep5/tree/main/.github/workflows) Contains a github actions workflow that automates docker image building, pushes images to docker, and supports semantic versions with Git tags.
